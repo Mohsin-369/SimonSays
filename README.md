@@ -1,4 +1,4 @@
-# Mohsin Says 🎮 
+# Mohsin Says 🧠 | Brain Edition 
 
 A visually stunning, high-performance, and feature-rich implementation of the classic **Mohsin Says** memory game built with vanilla web technologies.
 
