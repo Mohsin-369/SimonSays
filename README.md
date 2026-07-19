@@ -28,7 +28,7 @@ A visually stunning, high-performance, and feature-rich implementation of the cl
 You can launch this game instantly in your browser:
 
 ### Option A: Open directly
-Simply locate and double-click the `mohsinsays.html` file in your file explorer.
+Simply locate and double-click the `index.html` file in your file explorer.
 
 ### Option B: Local Server
 To run via a local development server:
@@ -37,6 +37,6 @@ To run via a local development server:
    ```bash
    python3 -m http.server 8080
    ```
-3. Open [http://localhost:8080/mohsinsays.html](http://localhost:8080/mohsinsays.html) in your browser.
+3. Open [http://localhost:8080/index.html](http://localhost:8080/index.html) in your browser.
 
 ---
