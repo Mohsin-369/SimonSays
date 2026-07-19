@@ -3,54 +3,279 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simon Says 🎮 | Ultimate Edition</title>
-    <!-- Google Fonts for beautiful typography -->
+    <title>Simon Says 🦉 | Duolingo Edition</title>
+    <!-- Google Fonts Nunito for Duolingo friendly look -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="simon.css">
 </head>
-<body>
-    <!-- Vibrant background glowing spheres -->
-    <div class="bg-glow glow-1"></div>
-    <div class="bg-glow glow-2"></div>
+<body class="light-theme">
 
-    <div class="game-container" id="game-container">
-        <header>
-            <h1>Simon Says 🎮</h1>
-            <p class="tagline">Repeat the pattern shown by Simon. Score points as you advance!</p>
-        </header>
-
-        <!-- Scoreboard showing level and high score -->
-        <div class="scoreboard">
-            <div class="score-card">
-                <span class="score-label">LEVEL</span>
-                <span class="score-val" id="level-val">0</span>
+    <div class="app-layout">
+        <!-- Sidebar Navigation (Desktop left / Mobile bottom) -->
+        <aside class="sidebar-nav" id="sidebar-nav">
+            <div class="sidebar-logo">
+                <span class="logo-owl">🦉</span>
+                <span class="logo-text">simon</span>
             </div>
-            <div class="score-card highlight">
-                <span class="score-label">HIGH SCORE</span>
-                <span class="score-val" id="high-score-val">0</span>
+            
+            <nav class="nav-links">
+                <button class="nav-item active" data-tab="learn" aria-label="Learn tab">
+                    <span class="nav-icon">🏠</span>
+                    <span class="nav-label">LEARN</span>
+                </button>
+                <button class="nav-item" data-tab="leaderboard" aria-label="Leaderboard tab">
+                    <span class="nav-icon">🏆</span>
+                    <span class="nav-label">LEADERBOARDS</span>
+                </button>
+                <button class="nav-item" data-tab="quests" aria-label="Quests tab">
+                    <span class="nav-icon">🎯</span>
+                    <span class="nav-label">QUESTS</span>
+                </button>
+                <button class="nav-item" data-tab="profile" aria-label="Profile tab">
+                    <span class="nav-icon">👤</span>
+                    <span class="nav-label">PROFILE</span>
+                </button>
+            </nav>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Central Game / Lesson Container -->
+            <div class="game-container" id="game-container">
+                
+                <!-- Lesson Top Bar Header -->
+                <header class="lesson-header">
+                    <button class="exit-btn" id="exit-btn" aria-label="Quit Lesson">✕</button>
+                    
+                    <div class="progress-bar-outer">
+                        <div class="progress-bar-inner" id="progress-bar-fill" style="width: 0%;"></div>
+                    </div>
+                    
+                    <div class="header-stats">
+                        <div class="stat-gems">
+                            <span class="stat-icon">💎</span>
+                            <span class="stat-val" id="gems-val">0</span>
+                        </div>
+                        <div class="stat-hearts">
+                            <span class="hearts-list" id="hearts-container">❤️ ❤️ ❤️</span>
+                        </div>
+                    </div>
+                </header>
+
+                <!-- Scrollable Tab Content Container -->
+                <div class="tab-content-container">
+                    
+                    <!-- 1. LEARN TAB SECTION -->
+                    <section class="tab-section active" id="learn-section">
+                        <!-- Duo Mascot & Speech Bubble Area -->
+                        <div class="mascot-speech-area">
+                            <div class="duo-mascot-container">
+                                <!-- Duo the Owl SVG with Custom Facial Expressions and Wing States -->
+                                <svg class="duo-owl neutral" id="duo-owl" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                                    <!-- Shadow -->
+                                    <ellipse cx="50" cy="92" rx="26" ry="6" fill="#e5e5e5" class="shadow-ellipse" />
+                                    <!-- Feet -->
+                                    <ellipse cx="40" cy="90" rx="7" ry="4" fill="#ff9600" />
+                                    <ellipse cx="60" cy="90" rx="7" ry="4" fill="#ff9600" />
+                                    <!-- Body -->
+                                    <path d="M 25,45 C 25,20 75,20 75,45 C 75,70 75,85 50,85 C 25,85 25,70 25,45 Z" fill="#78c800" />
+                                    <!-- Belly -->
+                                    <path d="M 33,52 C 33,38 67,38 67,52 C 67,66 67,80 50,80 C 33,80 33,66 33,52 Z" fill="#a5ed46" />
+                                    <!-- Breast Feathers -->
+                                    <path d="M 45,55 L 50,60 L 55,55" stroke="#78c800" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+                                    <path d="M 40,65 L 45,70 L 50,65" stroke="#78c800" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+                                    <path d="M 50,65 L 55,70 L 60,65" stroke="#78c800" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+                                    
+                                    <!-- Eyes System -->
+                                    <g class="duo-eyes">
+                                        <!-- Left Eye -->
+                                        <circle cx="38" cy="40" r="11" fill="#ffffff" />
+                                        <circle class="duo-pupil" cx="38" cy="40" r="4" fill="#4b4b4b" />
+                                        <circle class="duo-pupil-highlight" cx="36" cy="38" r="1.5" fill="#ffffff" />
+                                        <!-- Right Eye -->
+                                        <circle cx="62" cy="40" r="11" fill="#ffffff" />
+                                        <circle class="duo-pupil" cx="62" cy="40" r="4" fill="#4b4b4b" />
+                                        <circle class="duo-pupil-highlight" cx="60" cy="38" r="1.5" fill="#ffffff" />
+                                    </g>
+                                    
+                                    <!-- Happy Eyes -->
+                                    <g class="duo-happy-eyes">
+                                        <path d="M 28,42 Q 38,32 48,42" stroke="#4b4b4b" stroke-width="3.5" stroke-linecap="round" fill="none" />
+                                        <path d="M 52,42 Q 62,32 72,42" stroke="#4b4b4b" stroke-width="3.5" stroke-linecap="round" fill="none" />
+                                    </g>
+                                    
+                                    <!-- Sad/Crying Eyes -->
+                                    <g class="duo-sad-eyes">
+                                        <path d="M 28,39 Q 38,47 48,39" stroke="#4b4b4b" stroke-width="3.5" stroke-linecap="round" fill="none" />
+                                        <path d="M 52,39 Q 62,47 72,39" stroke="#4b4b4b" stroke-width="3.5" stroke-linecap="round" fill="none" />
+                                        <!-- Tears -->
+                                        <path class="tear tear-l" d="M 38,46 C 38,46 35,53 35,55 C 35,57 36.5,58 38,58 C 39.5,58 41,57 41,55 C 41,53 38,46 38,46 Z" fill="#1cb0f6" />
+                                        <path class="tear tear-r" d="M 62,46 C 62,46 59,53 59,55 C 59,57 60.5,58 62,58 C 63.5,58 65,57 65,55 C 65,53 62,46 62,46 Z" fill="#1cb0f6" />
+                                    </g>
+
+                                    <!-- Shocked Eyes -->
+                                    <g class="duo-shocked-eyes">
+                                        <circle cx="38" cy="40" r="11" fill="#ffffff" />
+                                        <circle cx="38" cy="40" r="6" fill="#ff4b4b" />
+                                        <circle cx="38" cy="40" r="2.5" fill="#ffffff" />
+                                        <circle cx="62" cy="40" r="11" fill="#ffffff" />
+                                        <circle cx="62" cy="40" r="6" fill="#ff4b4b" />
+                                        <circle cx="62" cy="40" r="2.5" fill="#ffffff" />
+                                    </g>
+                                    
+                                    <!-- Beaks -->
+                                    <polygon class="duo-closed-beak" points="46,45 54,45 50,54" fill="#ff9600" />
+                                    <polygon class="duo-open-beak" points="45,45 55,45 50,60" fill="#ea2b2b" />
+                                    
+                                    <!-- Wings -->
+                                    <path class="duo-left-wing" d="M 25,45 C 13,47 10,65 24,70" stroke="#78c800" stroke-width="9" stroke-linecap="round" fill="none" />
+                                    <path class="duo-right-wing" d="M 75,45 C 87,47 90,65 76,70" stroke="#78c800" stroke-width="9" stroke-linecap="round" fill="none" />
+                                </svg>
+                            </div>
+
+                            <div class="speech-bubble">
+                                <p id="status-text">Hi! I am Simon! Click <strong>Start Game</strong> or press <strong>Enter</strong> to challenge your memory!</p>
+                            </div>
+                        </div>
+
+                        <!-- 3D Tactile Simon Grid -->
+                        <div class="btn-container" id="simon-btn-grid">
+                            <button class="btn yellow" id="yellow" aria-label="Yellow pad">
+                                <span class="pad-key">1</span>
+                            </button>
+                            <button class="btn red" id="red" aria-label="Red pad">
+                                <span class="pad-key">2</span>
+                            </button>
+                            <button class="btn purple" id="purple" aria-label="Purple pad">
+                                <span class="pad-key">3</span>
+                            </button>
+                            <button class="btn green" id="green" aria-label="Green pad">
+                                <span class="pad-key">4</span>
+                            </button>
+                        </div>
+                    </section>
+
+                    <!-- 2. LEADERBOARDS SECTION -->
+                    <section class="tab-section" id="leaderboard-section">
+                        <div class="section-title-bar">
+                            <h2>🏆 Diamond League</h2>
+                            <p>Compete with active memory wizards around the globe!</p>
+                        </div>
+
+                        <div class="leaderboard-list" id="leaderboard-list">
+                            <!-- Leaderboard list will be injected here dynamically -->
+                        </div>
+                    </section>
+
+                    <!-- 3. QUESTS SECTION -->
+                    <section class="tab-section" id="quests-section">
+                        <div class="section-title-bar">
+                            <h2>🎯 Daily Challenges</h2>
+                            <p>Complete quests to win extra gems and experience points!</p>
+                        </div>
+
+                        <div class="quests-list" id="quests-list">
+                            <!-- Quests will be injected dynamically -->
+                        </div>
+                    </section>
+
+                    <!-- 4. PROFILE SECTION -->
+                    <section class="tab-section" id="profile-section">
+                        <div class="profile-card">
+                            <div class="profile-avatar">🦉</div>
+                            <div class="profile-info">
+                                <h2 class="profile-name">Memory Student</h2>
+                                <p class="profile-joined">Joined SimonSays Academy today</p>
+                            </div>
+                        </div>
+
+                        <h3 class="subsection-title">My Progress Stats</h3>
+                        <div class="profile-stats-grid">
+                            <div class="stat-card">
+                                <span class="card-icon">👑</span>
+                                <span class="card-val" id="profile-high-score">0</span>
+                                <span class="card-lbl">HIGH LEVEL</span>
+                            </div>
+                            <div class="stat-card">
+                                <span class="card-icon">⚡</span>
+                                <span class="card-val" id="profile-total-xp">0</span>
+                                <span class="card-lbl">TOTAL XP</span>
+                            </div>
+                            <div class="stat-card">
+                                <span class="card-icon">📚</span>
+                                <span class="card-val" id="profile-games-played">0</span>
+                                <span class="card-lbl">LESSONS RUN</span>
+                            </div>
+                        </div>
+
+                        <h3 class="subsection-title">Preferences</h3>
+                        <div class="settings-list">
+                            <div class="setting-item">
+                                <div class="setting-info">
+                                    <span class="setting-title">Sound Effects</span>
+                                    <span class="setting-desc">Play sweet synthesizer tones during play</span>
+                                </div>
+                                <button id="sound-btn" class="toggle-switch-btn active">
+                                    <span id="sound-icon">🔊</span> <span id="sound-text">Sound On</span>
+                                </button>
+                            </div>
+                            <div class="setting-item">
+                                <div class="setting-info">
+                                    <span class="setting-title">App Theme</span>
+                                    <span class="setting-desc">Choose between Duolingo light and dark styling</span>
+                                </div>
+                                <button id="theme-toggle-btn" class="theme-btn">
+                                    ☀️ Light Mode
+                                </button>
+                            </div>
+                        </div>
+                    </section>
+
+                </div>
+
+                <!-- Sticky Bottom Slide-up Footer (Duo Action Panel) -->
+                <footer class="feedback-footer" id="feedback-footer">
+                    <div class="footer-content-wrapper">
+                        <div class="footer-message" id="footer-message">
+                            <!-- Injected feedback text (e.g. Correct! or Incorrect!) -->
+                        </div>
+                        <div class="footer-action">
+                            <button id="start-btn" class="action-btn primary-action">Start Game</button>
+                        </div>
+                    </div>
+                </footer>
+
             </div>
-        </div>
 
-        <!-- Dynamic Game Status Text -->
-        <h2 id="status-text">Press <span class="accent">Enter</span> or click Start to Play</h2>
+            <!-- Right Widget Sidebars (Desktop viewports only) -->
+            <aside class="right-widgets-panel">
+                <div class="widget-card scoreboard-widget">
+                    <h3>Current Lesson</h3>
+                    <div class="widget-stats">
+                        <div class="widget-stat">
+                            <span class="label">LEVEL</span>
+                            <span class="value" id="level-val">0</span>
+                        </div>
+                        <div class="widget-stat">
+                            <span class="label">HIGH SCORE</span>
+                            <span class="value" id="high-score-val">0</span>
+                        </div>
+                    </div>
+                </div>
 
-        <!-- Interactive Simon Buttons -->
-        <div class="btn-container">
-            <button class="btn yellow" id="yellow" aria-label="Yellow pad"></button>
-            <button class="btn red" id="red" aria-label="Red pad"></button>
-            <button class="btn purple" id="purple" aria-label="Purple pad"></button>
-            <button class="btn green" id="green" aria-label="Green pad"></button>
-        </div>
-
-        <!-- Controls for Game start and sound customization -->
-        <div class="control-panel">
-            <button id="start-btn" class="action-btn start">Start Game</button>
-            <button id="sound-btn" class="action-btn sound-toggle">
-                <span id="sound-icon">🔊</span> <span id="sound-text">Sound On</span>
-            </button>
-        </div>
+                <div class="widget-card quests-widget">
+                    <div class="widget-header">
+                        <h3>Quests Progress</h3>
+                        <button class="view-all-link" data-go-tab="quests">View All</button>
+                    </div>
+                    <div class="widget-quests-list" id="widget-quests-list">
+                        <!-- Tiny quest progress indicators -->
+                    </div>
+                </div>
+            </aside>
+        </main>
     </div>
 
     <script src="simon.js"></script>
